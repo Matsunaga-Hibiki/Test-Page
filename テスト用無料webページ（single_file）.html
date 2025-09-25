@@ -1,0 +1,172 @@
+<!--
+  テスト用のシングルファイルHTMLページ
+  - 日本語での説明とインタラクティブな要素を含みます
+  使い方:
+  1) このファイルを index.html として保存
+  2) ローカルで確認: ブラウザで開くだけ
+  3) 無料ホスティング例: GitHub Pages / Netlify / Vercel にアップロード
+-->
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>テスト用ページ — シンプルなサンプル</title>
+  <meta name="description" content="テストやデモ用のシングルファイルWebページ（HTML/CSS/JS）。ボタン、フォーム、簡易チャート、ダークモードを含みます。">
+  <style>
+    :root{--bg:#f7f9fc;--card:#ffffff;--text:#111827;--accent:#2563eb}
+    [data-theme="dark"]{--bg:#0b1220;--card:#0f1724;--text:#e6eef8;--accent:#60a5fa}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:var(--bg);color:var(--text);line-height:1.4}
+    .container{max-width:960px;margin:32px auto;padding:16px}
+    header{display:flex;align-items:center;justify-content:space-between}
+    h1{margin:0;font-size:1.4rem}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 20px rgba(2,6,23,0.06);margin-top:16px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    button{background:var(--accent);color:white;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
+    input,textarea,select{width:100%;padding:8px;border-radius:8px;border:1px solid #d1d5db}
+    footer{margin-top:24px;font-size:0.85rem;color:#6b7280}
+
+    /* シンプルな棒グラフ */
+    .bar{height:18px;border-radius:8px;background:linear-gradient(90deg,var(--accent),rgba(38,132,255,0.6));}
+
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header>
+      <h1>テスト用ページ — シンプルデモ</h1>
+      <div class="controls">
+        <button id="toggleTheme">ダーク/ライト</button>
+        <button id="downloadBtn">HTML をダウンロード</button>
+      </div>
+    </header>
+
+    <section class="card" aria-labelledby="intro">
+      <h2 id="intro">使い方</h2>
+      <p>このページはテスト用です。画面のボタンやフォームで動作確認できます。ローカルで保存して配布・ホスティングして試してください。</p>
+      <ul>
+        <li>ボタン: カウント増加、テーマ切替</li>
+        <li>フォーム送信: ページ内でのバリデーションとモック送信</li>
+        <li>簡易グラフ: データを入れて表示</li>
+      </ul>
+    </section>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h3>インタラクション</h3>
+          <p>クリック数: <strong id="count">0</strong></p>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="inc">+1</button>
+            <button id="reset">リセット</button>
+          </div>
+
+          <hr style="margin:12px 0">
+
+          <h4>フォーム（モック送信）</h4>
+          <form id="sampleForm">
+            <label>名前（必須）<input type="text" id="name" required placeholder="あなたの名前"></label>
+            <label style="display:block;margin-top:8px">メール（任意）<input type="email" id="email" placeholder="you@example.com"></label>
+            <label style="display:block;margin-top:8px">コメント<textarea id="comment" rows="3" placeholder="テストコメント"></textarea></label>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button type="submit">送信</button>
+              <button type="button" id="clearForm">クリア</button>
+            </div>
+          </form>
+          <p id="formMsg" aria-live="polite" style="margin-top:8px;color:#065f46"></p>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3>簡易データ表示（グラフ）</h3>
+          <p>カンマ区切りの数値を入れて「表示」を押すと簡易バーグラフになります。</p>
+          <input id="dataInput" placeholder="10,20,5,30">
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="render">表示</button>
+            <button id="clearGraph">クリア</button>
+          </div>
+          <div id="graph" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <aside class="card" aria-labelledby="preview">
+        <h3 id="preview">プレビュー / 情報</h3>
+        <p>簡単に試せるデモ要素をまとめています。下は外部イメージ（プレースホルダー）です。</p>
+        <img src="https://placehold.co/600x200?text=Test+Image" alt="プレースホルダー画像" style="width:100%;border-radius:8px;margin-top:8px">
+
+        <hr style="margin:12px 0">
+        <h4>ブラウザでの確認</h4>
+        <ol>
+          <li>このファイルを保存 → index.html</li>
+          <li>ダブルクリック or ブラウザで開く</li>
+          <li>GitHub Pages に push すると公開できます（ブランチ: gh-pages または /docs）</li>
+        </ol>
+        <p style="margin-top:8px">ホスティングを試したい場合は、どの方法を使いたいか教えてください（GitHub Pages / Netlify / Vercel）。手順を作ります。</p>
+      </aside>
+    </div>
+
+    <footer class="container">
+      <small>作成日: 2025-09-26 — テスト用ページ（シングルファイル）</small>
+    </footer>
+  </div>
+
+  <script>
+    // テーマ切替
+    const toggleBtn = document.getElementById('toggleTheme');
+    toggleBtn.addEventListener('click', ()=>{
+      const html = document.documentElement;
+      if(html.getAttribute('data-theme') === 'dark') html.removeAttribute('data-theme');
+      else html.setAttribute('data-theme','dark');
+    });
+
+    // カウント
+    const countEl = document.getElementById('count');
+    let count = 0;
+    document.getElementById('inc').addEventListener('click', ()=>{count++; countEl.textContent = count});
+    document.getElementById('reset').addEventListener('click', ()=>{count=0; countEl.textContent = count});
+
+    // フォーム
+    const form = document.getElementById('sampleForm');
+    const formMsg = document.getElementById('formMsg');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      if(!name){formMsg.textContent = '名前は必須です。'; formMsg.style.color = '#b91c1c'; return}
+      // モック送信（実際は fetch で送る）
+      formMsg.style.color = '#065f46';
+      formMsg.textContent = `送信しました（モック）。名前: ${name}`;
+    });
+    document.getElementById('clearForm').addEventListener('click', ()=>{form.reset(); formMsg.textContent = ''});
+
+    // グラフ表示
+    const graph = document.getElementById('graph');
+    document.getElementById('render').addEventListener('click', ()=>{
+      const raw = document.getElementById('dataInput').value.trim();
+      if(!raw){graph.innerHTML = '<em>データが空です</em>'; return}
+      const nums = raw.split(',').map(s=>Number(s.trim())).filter(n=>!Number.isNaN(n));
+      if(nums.length===0){graph.innerHTML = '<em>有効な数値がありません</em>'; return}
+      const max = Math.max(...nums);
+      graph.innerHTML = nums.map(n=>{
+        const w = Math.round((n/max)*100);
+        return `<div style="margin-bottom:8px">
+                  <div style="display:flex;justify-content:space-between;font-size:0.9rem;margin-bottom:4px"><span>値: ${n}</span><span>${w}%</span></div>
+                  <div style="background:#e6eef8;padding:6px;border-radius:10px"><div class="bar" style="width:${w}%"></div></div>
+                </div>`
+      }).join('');
+    });
+    document.getElementById('clearGraph').addEventListener('click', ()=>{document.getElementById('dataInput').value=''; graph.innerHTML=''});
+
+    // HTML ダウンロード（現在のページの HTML をテキストとして保存）
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'test-page.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
